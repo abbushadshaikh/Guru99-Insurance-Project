@@ -1,5 +1,6 @@
 Test Case 1: Valid Login:
 
+Description: Verify that the user can log in with valid credentials.
 
 
 // code //
@@ -22,3 +23,77 @@ assert "Broker Insurance WebPage" in driver.title, "Login failed!"
 
 # Teardown
 driver.quit()
+
+
+
+Test Case 2: Invalid Login :
+
+Description: Verify that the user cannot log in with invalid credentials.
+
+
+// code //
+
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# Setup
+driver = webdriver.Chrome()
+driver.get("https://demo.guru99.com/insurance/v1/index.php")
+
+# Test Steps
+driver.find_element(By.ID, "email").send_keys("invalid_email@example.com")
+driver.find_element(By.ID, "password").send_keys("invalid_password")
+driver.find_element(By.NAME, "submit").click()
+
+# Expected Result
+error_message = driver.find_element(By.CLASS_NAME, "error").text
+assert "Enter your Email address and password correct" in error_message, "Error message not displayed as expected!"
+
+# Teardown
+driver.quit()
+
+
+
+
+Test Case 3: Successful Registration :
+
+Description: Verify that a new user can register successfully.
+
+
+
+// code // 
+
+
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# Setup
+driver = webdriver.Chrome()
+driver.get("https://demo.guru99.com/insurance/v1/index.php")
+
+# Test Steps
+driver.find_element(By.ID, "user_title").send_keys("Mr")
+driver.find_element(By.ID, "user_surname").send_keys("Test")
+driver.find_element(By.ID, "user_firstname").send_keys("User")
+driver.find_element(By.ID, "user_phone").send_keys("1234567890")
+driver.find_element(By.ID, "user_dateofbirth_1i").send_keys("1990")
+driver.find_element(By.ID, "user_dateofbirth_2i").send_keys("January")
+driver.find_element(By.ID, "user_dateofbirth_3i").send_keys("1")
+driver.find_element(By.ID, "user_address_attributes_street").send_keys("123 Test Street")
+driver.find_element(By.ID, "user_address_attributes_city").send_keys("TestCity")
+driver.find_element(By.ID, "user_address_attributes_county").send_keys("TestCounty")
+driver.find_element(By.ID, "user_address_attributes_postcode").send_keys("12345")
+driver.find_element(By.ID, "user_user_detail_attributes_email").send_keys("testuser@example.com")
+driver.find_element(By.ID, "user_user_detail_attributes_password").send_keys("TestPassword")
+driver.find_element(By.ID, "user_user_detail_attributes_password_confirmation").send_keys("TestPassword")
+driver.find_element(By.NAME, "submit").click()
+
+# Expected Result
+assert "Thank you for registering" in driver.page_source, "Registration failed!"
+
+# Teardown
+driver.quit()
+
+
